@@ -2,7 +2,7 @@
     "name": "studyportals/exception",
     "description": "Default exceptions and ExceptionHandler for studyportals",
     "type": "library",
-    "license": "BSD3-Clause",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Rob van den Hout",
