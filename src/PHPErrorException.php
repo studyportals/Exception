@@ -7,10 +7,9 @@
  * @copyright © 2017 StudyPortals B.V., all rights reserved.
  */
 
-namespace StudyPortals\Framework\Exception;
+namespace StudyPortals\Exception;
 
 use ErrorException;
-use StudyPortals\Framework\Utils\HTTP;
 
 /**
  * PHPErrorException.
@@ -92,7 +91,7 @@ class PHPErrorException extends ErrorException{
 			}
 			else{
 
-				HTTP::status(HTTP::INTERNAL_SERVER_ERROR, true);
+				@header("HTTP/1.1 500 Internal Server Error");
 				@header('Content-Type: text/html');
 
 				return BaseException::displayException($this);

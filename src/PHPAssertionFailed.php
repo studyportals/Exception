@@ -7,7 +7,7 @@
  * @copyright © 2017 StudyPortals B.V., all rights reserved.
  */
 
-namespace StudyPortals\Framework\Exception;
+namespace StudyPortals\Exception;
 
 /**
  * PHPAssertionFailed.

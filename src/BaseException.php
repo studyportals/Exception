@@ -7,11 +7,9 @@
  * @copyright © 2017 StudyPortals B.V., all rights reserved.
  */
 
-namespace StudyPortals\Framework\Exception;
+namespace StudyPortals\Exception;
 
 use Exception;
-use StudyPortals\Framework\Utils\HTTP;
-use StudyPortals\Framework\Utils\HTTPException;
 
 /**
  * BaseException.
@@ -47,30 +45,6 @@ class BaseException extends Exception implements IBaseException{
 	}
 
 	/**
-	 * Trigger an "assert-type" notice.
-	 *
-	 * <p><strong>Deprecated</strong>: Use {@link ExceptionHandler::notice()}
-	 * instead!</p>
-	 *
-	 * @param $message
-	 *
-	 * @return void
-	 * @uses ExceptionHandler::notice()
-	 */
-
-	public static function notice($message){
-
-		// Catch-22 ;)
-
-		ExceptionHandler::notice(
-			'BaseException::notice() deprecated,
-			use ExceptionHandler::notice() instead'
-		);
-
-		ExceptionHandler::notice($message);
-	}
-
-	/**
 	 * Generated a user-readable error page.
 	 *
 	 * <p>This method automatically selects the correct output type, based upon
@@ -95,21 +69,21 @@ class BaseException extends Exception implements IBaseException{
 
 				return self::displayConsoleException($this);
 			}
-			else{
 
-				if($this instanceof HTTPException){
+			$statusCode = 500;
+			$statusMessage = 'Internal Server Error';
 
-					HTTP::status($this->getStatusCode(), true);
-				}
-				else{
+			if($this instanceof HTTPException){
 
-					HTTP::status(HTTP::INTERNAL_SERVER_ERROR, true);
-				}
+				$statusCode = $this->getStatusCode();
+				$statusMessage = $this->getStatusMessage();
 
-				@header('Content-Type: text/html');
-
-				return self::displayException($this);
 			}
+
+			@header("HTTP/1.1 $statusCode $statusMessage");
+			@header('Content-Type: text/html');
+
+			return self::displayException($this);
 		}
 
 		catch(\Throwable $e){
@@ -190,12 +164,11 @@ class BaseException extends Exception implements IBaseException{
 
 			return $final;
 		}
-		else{
 
-			$fqn_caps = preg_replace('/[a-z]+/', '', $fqn_parts);
+		$fqn_caps = preg_replace('/[a-z]+/', '', $fqn_parts);
 
-			return implode('\\', $fqn_caps) . '\\' . $final;
-		}
+		return implode('\\', $fqn_caps) . '\\' . $final;
+
 	}
 
 	/**

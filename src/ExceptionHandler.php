@@ -41,9 +41,7 @@
  * @version 1.10.0
  */
 
-namespace StudyPortals\Framework\Exception;
-
-use StudyPortals\Framework\Utils\HTTP;
+namespace StudyPortals\Exception;
 
 if(!defined('DEFAULT_CHARSET')){
 
@@ -251,14 +249,14 @@ abstract class ExceptionHandler{
 
 			else{
 
-				HTTP::status(HTTP::INTERNAL_SERVER_ERROR, true);
+				@header("HTTP/1.1 500 Internal Server Error");
 				@header('Content-Type: text/html');
 
 				echo BaseException::displayException($Throwable);
 			}
 		}
 
-		// Exception while displaying the exception
+			// Exception while displaying the exception
 
 		catch(\Throwable $e){
 

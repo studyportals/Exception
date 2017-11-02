@@ -13,16 +13,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "StudyPortals\\Framework\\Exception\\": "src/"
+            "StudyPortals\\Exception\\": "src/"
         }
-    },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@github.com:studyportals/Framework-HTTP.git"
-        }
-    ],
-    "require": {
-        "studyportals/http": "^1.0"
     }
 }
