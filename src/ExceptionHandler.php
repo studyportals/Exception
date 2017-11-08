@@ -45,7 +45,7 @@ namespace StudyPortals\Exception;
 
 if(!defined('DEFAULT_CHARSET')){
 
-	define('DEFAULT_CHARSET', 'ISO-8859-1');
+	define('DEFAULT_CHARSET', 'UTF-8');
 }
 
 /**
