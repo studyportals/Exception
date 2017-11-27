@@ -1102,6 +1102,11 @@ class BaseException extends Exception implements IBaseException{
 
 		$iconv = function($string){
 
+			if(mb_detect_encoding($string,'Windows-1252, UTF-8, ISO-8859-1') === 'UTF-8'){
+				
+				return $string;
+			}
+			
 			return @iconv('Windows-1252', 'UTF-8//TRANSLIT', $string);
 		};
 
